@@ -25,4 +25,3 @@ function addTask() {
   taskList.appendChild(li);
   input.value = "";
 }
-s
