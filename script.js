@@ -1,27 +1,22 @@
-function addTask() {
-  const input = document.getElementById("taskInput");
-  const taskText = input.value.trim();
+// app.js
+const chatBox = document.getElementById('chatBox');
+const messageForm = document.getElementById('messageForm');
+const messageInput = document.getElementById('messageInput');
 
-  if (taskText === "") {
-    alert("Please enter a task.");
-    return;
-  }
+// Simulate two users locally (replace this logic with real-time backend)
+let isUser = true;
 
-  const taskList = document.getElementById("taskList");
+messageForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const msg = messageInput.value.trim();
+  if (!msg) return;
 
-  const li = document.createElement("li");
+  const msgEl = document.createElement('div');
+  msgEl.classList.add('message', isUser ? 'user' : 'other');
+  msgEl.textContent = msg;
+  chatBox.appendChild(msgEl);
 
-  const span = document.createElement("span");
-  span.textContent = taskText;
-  span.onclick = () => span.parentElement.classList.toggle("completed");
-
-  const delBtn = document.createElement("button");
-  delBtn.innerHTML = "🗑️";
-  delBtn.onclick = () => taskList.removeChild(li);
-
-  li.appendChild(span);
-  li.appendChild(delBtn);
-
-  taskList.appendChild(li);
-  input.value = "";
-}
+  chatBox.scrollTop = chatBox.scrollHeight;
+  messageInput.value = '';
+  isUser = !isUser;
+});

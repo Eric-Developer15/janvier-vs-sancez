@@ -1,126 +1,69 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* style.css */
 body {
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #1e1e2f;
+  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
-.app-container {
-  background: white;
-  padding: 30px 25px;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.input-container {
+.chat-container {
+  background: #2c2c3e;
+  border-radius: 10px;
+  width: 400px;
+  height: 600px;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.input-container input {
+.chat-box {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 70%;
+}
+
+.user {
+  background-color: #4a90e2;
+  align-self: flex-end;
+}
+
+.other {
+  background-color: #444;
+  align-self: flex-start;
+}
+
+form {
+  display: flex;
+  padding: 10px;
+  background: #1f1f2e;
+}
+
+input {
   flex: 1;
   padding: 10px;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.input-container input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.input-container button {
-  padding: 10px 15px;
-  font-size: 16px;
   border: none;
-  background: #007bff;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #4a90e2;
   color: white;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.input-container button:hover {
-  background: #0056b3;
-}
-
-ul#taskList {
-  list-style: none;
-  padding: 0;
-}
-
-ul#taskList li {
-  background: #f1f1f1;
-  margin-bottom: 10px;
-  padding: 12px 15px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: popIn 0.3s ease;
-}
-
-ul#taskList li.completed {
-  text-decoration: line-through;
-  color: gray;
-  background-color: #e0e0e0;
-}
-
-ul#taskList li span {
-  flex: 1;
-  cursor: pointer;
-}
-
-ul#taskList li button {
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: red;
-  cursor: pointer;
-}
-
-@keyframes popIn {
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Responsive */
-@media screen and (max-width: 480px) {
-  .app-container {
-    width: 90%;
-  }
-
-  .input-container button {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .input-container input {
-    font-size: 14px;
-  }
 }
