@@ -365,6 +365,216 @@
             .cta-buttons { flex-direction: column; }
             .cta-button { padding: 0.8rem 1.5rem; font-size: 1rem; }
         }
+
+        .products-section {
+    padding: 5rem 2rem;
+    background: #f5f5f7;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+.product-info {
+    padding: 0 1rem;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 0.5rem;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    color: #86868b;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 1.5rem;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 0.8rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.add-to-cart:hover {
+    background: #0077ed;
+}
+
+/* Cart Sidebar */
+.cart-sidebar {
+    position: fixed;
+    top: var(--nav-height);
+    right: -400px;
+    width: 400px;
+    height: calc(100vh - var(--nav-height));
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    transition: right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 9999;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.cart-sidebar.active {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cart-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.cart-items {
+    height: calc(100% - 150px);
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #d2d2d7;
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 0.3rem;
+}
+
+.item-price {
+    font-size: 0.9rem;
+    color: #86868b;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d2d2d7;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-total {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: #fff;
+    border-top: 1px solid #d2d2d7;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #0071e3;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -441,6 +651,46 @@
         </div>
     </section>
 
+    <!-- Add this HTML -->
+<section class="products-section">
+    <div class="section-header">
+        <h2>Featured Products</h2>
+        <p>Premium solutions for modern development</p>
+    </div>
+    
+    <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img src="image/pexels-inmortal-producciones-108299-336232.jpg" alt="Product 1" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Pro Development Suite</h3>
+                <p class="product-description">Complete toolkit for enterprise-grade application development</p>
+                <div class="product-price">$299</div>
+                <button class="add-to-cart">
+                    <i class="fas fa-cart-plus"></i>
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img src="image/pexels-pixabay-257699.jpg" alt="Product 2" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">AI Integration Package</h3>
+                <p class="product-description">Machine learning implementation and optimization services</p>
+                <div class="product-price">$499</div>
+                <button class="add-to-cart">
+                    <i class="fas fa-cart-plus"></i>
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <!-- Add more products as needed -->
+    </div>
+</section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Scroll Handler
@@ -515,6 +765,90 @@
             ];
             images.forEach(src => new Image().src = src);
         });
+        class Cart {
+    constructor() {
+        this.items = [];
+        this.cartSidebar = document.querySelector('.cart-sidebar');
+        this.cartItems = document.querySelector('.cart-items');
+        this.subtotalElement = document.querySelector('.subtotal');
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => this.addItem(e));
+        });
+        
+        document.querySelector('.close-cart').addEventListener('click', () => {
+            this.cartSidebar.classList.remove('active');
+        });
+    }
+
+    addItem(e) {
+        const productCard = e.target.closest('.product-card');
+        const product = {
+            id: productCard.dataset.id,
+            name: productCard.querySelector('.product-title').textContent,
+            price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$', '')),
+            image: productCard.querySelector('.product-image').src
+        };
+
+        const existingItem = this.items.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            this.items.push({ ...product, quantity: 1 });
+        }
+
+        this.updateCart();
+        this.cartSidebar.classList.add('active');
+    }
+
+    updateCart() {
+        this.cartItems.innerHTML = '';
+        let subtotal = 0;
+
+        this.items.forEach(item => {
+            subtotal += item.price * item.quantity;
+            
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img src="${item.image}" class="item-image" alt="${item.name}">
+                <div class="item-details">
+                    <h4 class="item-title">${item.name}</h4>
+                    <p class="item-price">$${item.price.toFixed(2)}</p>
+                    <div class="item-quantity">
+                        <button class="quantity-btn minus">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                </div>
+            `;
+
+            cartItem.querySelector('.minus').addEventListener('click', () => {
+                item.quantity--;
+                if (item.quantity < 1) this.removeItem(item.id);
+                this.updateCart();
+            });
+
+            cartItem.querySelector('.plus').addEventListener('click', () => {
+                item.quantity++;
+                this.updateCart();
+            });
+
+            this.cartItems.appendChild(cartItem);
+        });
+
+        this.subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    removeItem(id) {
+        this.items = this.items.filter(item => item.id !== id);
+        this.updateCart();
+    }
+}
+
+// Initialize cart
+const cart = new Cart();
+</script>
     </script>
 </body>
 </html>
