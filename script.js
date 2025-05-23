@@ -1,28 +1,23 @@
-function addTask() {
-  const input = document.getElementById("taskInput");
-  const taskText = input.value.trim();
+const form = document.getElementById('loginForm');
+const togglePassword = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+const errorMsg = document.getElementById('error-msg');
 
-  if (taskText === "") {
-    alert("Please enter a task.");
-    return;
+togglePassword.addEventListener('click', () => {
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = form.email.value;
+  const password = form.password.value;
+
+  if (email === 'admin@example.com' && password === '123456') {
+    alert('Login successful!');
+    errorMsg.textContent = '';
+  } else {
+    errorMsg.textContent = 'Invalid email or password!';
   }
-
-  const taskList = document.getElementById("taskList");
-
-  const li = document.createElement("li");
-
-  const span = document.createElement("span");
-  span.textContent = taskText;
-  span.onclick = () => span.parentElement.classList.toggle("completed");
-
-  const delBtn = document.createElement("button");
-  delBtn.innerHTML = "🗑️";
-  delBtn.onclick = () => taskList.removeChild(li);
-
-  li.appendChild(span);
-  li.appendChild(delBtn);
-
-  taskList.appendChild(li);
-  input.value = "";
-}
-s
+});
