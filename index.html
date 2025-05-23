@@ -3,48 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple-like Navbar</title>
+    <title>CODERW - Professional Development Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-         .navbar {
-            z-index: 10000;
-            margin-top: 0;
-        }
-
-        .hero {
-            margin-top: var(--nav-height);
-        }
-
-        .dropdown-menu {
-            z-index: 10001;
-        }
-
-        /* Add this animation fix */
-        .hero-content * {
-            animation-fill-mode: both !important;
-        }
-
-        /* Update mobile media query */
-        @media (max-width: 768px) {
-            .text-gradient {
-                font-size: 2.5rem !important;
-            }
-            
-            .animated-subhead {
-                font-size: 1.2rem !important;
-            }
-            
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
-            }
-        }
         :root {
             --nav-height: 44px;
             --nav-bg: rgba(0, 0, 0, 0.8);
             --nav-bg-scrolled: rgba(0, 0, 0, 0.92);
             --text-primary: #f5f5f7;
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --brand-primary: #2ec4b6;
         }
 
         * {
@@ -65,7 +33,7 @@
             background: var(--nav-bg);
             backdrop-filter: blur(20px);
             padding: 0 20px;
-            z-index: 1000;
+            z-index: 10000;
             transition: var(--transition);
             height: var(--nav-height);
         }
@@ -168,7 +136,6 @@
             transform: scale(1.15);
         }
 
-        /* Enhanced Dropdown */
         .dropdown-menu {
             position: absolute;
             top: calc(var(--nav-height) + 8px);
@@ -183,6 +150,7 @@
             transition: var(--transition);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
             min-width: 200px;
+            z-index: 10001;
         }
 
         .dropdown-menu::before {
@@ -213,247 +181,196 @@
             transition-delay: 0.1s;
         }
 
-        /* Scrolled State */
         .navbar.scrolled {
             background: var(--nav-bg-scrolled);
             height: 40px;
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .navbar {
-                padding: 0 15px;
-            }
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            margin-top: var(--nav-height);
         }
-        
-        /* Hero Section */
-    .hero {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-}
 
-.hero-slideshow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
+        .hero-slideshow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
 
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    z-index: 1;
-}
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
 
-.slide.active {
-    opacity: 1;
-    z-index: 2;
-}
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
 
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 25, 47, 0.85);
-    z-index: 3;
-}
-.hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 0 2rem;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            z-index: 3;
+        }
 
-.animated-headline {
-    overflow: hidden;
-    margin-bottom: 2rem;
-}
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            padding: 0 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-.text-gradient {
-    background: linear-gradient(45deg, #2ec4b6, #3a86ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 4.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.8s forwards;
-    animation-delay: 0.3s;
-}
+        .text-gradient {
+            background: linear-gradient(45deg, var(--brand-primary), #3a86ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
 
-.words-wrapper b {
-    display: inline-block;
-    white-space: nowrap;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    transform: translateY(100%);
-}
+        .words-wrapper b {
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.8s ease-in-out;
+        }
 
-.words-wrapper b.is-visible {
-    position: relative;
-    opacity: 1;
-    transform: translateY(0);
-    animation: slideIn 0.6s forwards;
-}
+        .words-wrapper b.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
 
-.animated-subhead {
-    font-size: 1.8rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.8s forwards;
-    animation-delay: 0.5s;
-}
+        .animated-subhead {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+        }
 
-.animated-words span {
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    opacity: 0;
-    transform: translateY(20px);
-}
+        .animated-words span {
+            display: inline-block;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.8s ease-in-out;
+        }
 
-.cta-buttons {
-    display: flex;
-    gap: 1.5rem;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 0.8s forwards;
-    animation-delay: 0.7s;
-}
+        .animated-words span.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
 
-.cta-button {
-    position: relative;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
 
-.primary-cta {
-    background: linear-gradient(45deg, #2ec4b6, #3a86ff);
-    color: #fff;
-    border: none;
-}
+        .cta-button {
+            position: relative;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
 
-.secondary-cta {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+        .primary-cta {
+            background: linear-gradient(45deg, var(--brand-primary), #3a86ff);
+            color: #fff;
+            border: none;
+        }
 
-.hover-effect {
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translate(-50%, -50%) scale(0);
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+        .secondary-cta {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-.cta-button:hover .hover-effect {
-    transform: translate(-50%, -50%) scale(1);
-}
+        .hover-effect {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
 
-.scrolldown {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-}
+        .cta-button:hover .hover-effect {
+            transform: translate(-50%, -50%) scale(1);
+        }
 
-.chevrons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    animation: bounce 2s infinite;
-}
+        .scrolldown {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
 
-.chevrondown {
-    width: 20px;
-    height: 20px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(45deg);
-    opacity: 0.7;
-}
+        .chevrons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            animation: bounce 2s infinite;
+        }
 
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .chevrondown {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
 
-@keyframes slideIn {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-@media (max-width: 768px) {
-    .text-gradient {
-        font-size: 3rem;
-    }
-    
-    .animated-subhead {
-        font-size: 1.4rem;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-    }
-}
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .navbar { padding: 0 15px; }
+            .text-gradient { font-size: 2.5rem; }
+            .animated-subhead { font-size: 1.2rem; }
+            .cta-buttons { flex-direction: column; }
+            .cta-button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
-      <nav class="navbar">
+    <nav class="navbar">
         <div class="nav-content">
             <a href="#" class="logo">CODERW</a>
-            
             <ul class="nav-links">
                 <li class="dropdown">
                     <a href="#">Solutions</a>
@@ -469,7 +386,6 @@
                 <li><a href="#">Case Studies</a></li>
                 <li><a href="#">About</a></li>
             </ul>
-
             <div class="nav-icons">
                 <i class="fas fa-search"></i>
                 <i class="fas fa-user"></i>
@@ -477,64 +393,61 @@
         </div>
     </nav>
 
-<section class="hero">
-    <div class="hero-slideshow">
-        <div class="slide active" style="background-image: url('image/pexels-capondesign-1261816.jpg')"></div>
-        <div class="slide" style="background-image: url('image/pexels-inmortal-producciones-108299-336232.jpg')"></div>
-        <div class="slide" style="background-image: url('image/pexels-marina-hinic-199169-726233.jpg')"></div>
-        <div class="overlay"></div>
-    </div>
-    
-    <div class="hero-content">
-        <div class="animated-headline">
-            <h1 class="text-gradient">
-                <span class="words-wrapper">
-                    <b class="is-visible">Transform Your Digital Presence</b>
-                    <b>Innovate With Cutting-Edge Tech</b>
-                    <b>Build Future-Ready Solutions</b>
-                </span>
-            </h1>
+    <section class="hero">
+        <div class="hero-slideshow">
+            <div class="slide active" style="background-image: url('image/pexels-capondesign-1261816.jpg')"></div>
+            <div class="slide" style="background-image: url('image/pexels-inmortal-producciones-108299-336232.jpg')"></div>
+            <div class="slide" style="background-image: url('image/pexels-pixabay-257699.jpg')"></div>
+            <div class="overlay"></div>
         </div>
         
-        <h2 class="animated-subhead">
-            <span class="animated-words">
-                <span>Enterprise-grade development solutions</span>
-                <span>AI-powered technological innovation</span>
-                <span>Cloud-native architecture specialists</span>
-            </span>
-            <br>for modern businesses
-        </h2>
+        <div class="hero-content">
+            <div class="animated-headline">
+                <h1 class="text-gradient">
+                    <span class="words-wrapper">
+                        <b class="is-visible">Transform Your Digital Presence</b>
+                        <b>Innovate With Cutting-Edge Tech</b>
+                        <b>Build Future-Ready Solutions</b>
+                    </span>
+                </h1>
+            </div>
+            
+            <h2 class="animated-subhead">
+                <span class="animated-words">
+                    <span class="is-visible">Enterprise-grade development solutions</span>
+                    <span>AI-powered technological innovation</span>
+                    <span>Cloud-native architecture specialists</span>
+                </span>
+                <br>for modern businesses
+            </h2>
 
-        <div class="cta-buttons">
-            <a href="#" class="cta-button primary-cta">
-                <span>Start Your Project</span>
-                <div class="hover-effect"></div>
-            </a>
-            <a href="#" class="cta-button secondary-cta">
-                <span>Explore Solutions</span>
-                <div class="hover-effect"></div>
-            </a>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button primary-cta">
+                    <span>Start Your Project</span>
+                    <div class="hover-effect"></div>
+                </a>
+                <a href="#" class="cta-button secondary-cta">
+                    <span>Explore Solutions</span>
+                    <div class="hover-effect"></div>
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="scrolldown">
-        <div class="chevrons">
-            <div class="chevrondown"></div>
-            <div class="chevrondown"></div>
+        <div class="scrolldown">
+            <div class="chevrons">
+                <div class="chevrondown"></div>
+                <div class="chevrondown"></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-     <script>
-        // Replace the entire script section with this corrected version
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Scroll Handler
+            const navbar = document.querySelector('.navbar');
             window.addEventListener('scroll', () => {
-                const navbar = document.querySelector('.navbar');
-                const currentScroll = window.scrollY;
-                
-                navbar.classList.toggle('scrolled', currentScroll > 50);
-                navbar.style.backdropFilter = `blur(${Math.min(30, 20 + currentScroll/30)}px)`;
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                navbar.style.backdropFilter = `blur(${Math.min(30, 20 + window.scrollY/30)}px)`;
             });
 
             // Dropdown Handling
@@ -553,38 +466,46 @@
                 });
             });
 
-            // Slideshow Controller
+            // Slideshow and Text Animation
             const slides = document.querySelectorAll('.slide');
-            let currentSlide = 0;
-            
-            // Initialize slides
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                if(index === 0) slide.classList.add('active');
-            });
-            
+            const headlines = document.querySelectorAll('.words-wrapper b');
+            const subheads = document.querySelectorAll('.animated-words span');
+            let currentIndex = 0;
+            let isAnimating = false;
+
             function nextSlide() {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // Fade out current elements
+                slides[currentIndex].classList.remove('active');
+                headlines[currentIndex].classList.remove('is-visible');
+                subheads[currentIndex].classList.remove('is-visible');
+
+                // Update index
+                currentIndex = (currentIndex + 1) % slides.length;
+
+                // Fade in new elements
+                slides[currentIndex].classList.add('active');
+                headlines[currentIndex].classList.add('is-visible');
+                subheads[currentIndex].classList.add('is-visible');
+
+                // Reset animation lock
+                setTimeout(() => isAnimating = false, 1500);
             }
+
+            // Initialize first slide
+            slides[0].classList.add('active');
+            headlines[0].classList.add('is-visible');
+            subheads[0].classList.add('is-visible');
+
+            // Start slideshow
             let slideInterval = setInterval(nextSlide, 5000);
 
-            // Text Animation
-            function animateText(elements, delay) {
-                let index = 0;
-                function updateText() {
-                    elements.forEach(el => el.classList.remove('is-visible'));
-                    elements[index].classList.add('is-visible');
-                    index = (index + 1) % elements.length;
-                }
-                updateText();
-                setInterval(updateText, delay);
-            }
-
-            // Initialize animations
-            animateText(document.querySelectorAll('.words-wrapper b'), 3000);
-            animateText(document.querySelectorAll('.animated-words span'), 3000);
+            // Pause on hover
+            const hero = document.querySelector('.hero');
+            hero.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            hero.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
 
             // Preload images
             const images = [
@@ -592,7 +513,7 @@
                 'images/pexels-inmortal-producciones-108299-336232.jpg',
                 'images/pexels-marina-hinic-199169-726233.jpg'
             ];
-            images.forEach(img => new Image().src = img);
+            images.forEach(src => new Image().src = src);
         });
     </script>
 </body>
