@@ -6,6 +6,14 @@
     <title>Apple-like Navbar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --nav-height: 44px;
+            --nav-bg: rgba(0, 0, 0, 0.8);
+            --nav-bg-scrolled: rgba(0, 0, 0, 0.92);
+            --text-primary: #f5f5f7;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,15 +21,36 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
+        body {
+            background: #fff;
+        }
+
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
             padding: 0 20px;
             z-index: 1000;
-            transition: background 0.3s;
+            transition: var(--transition);
+            height: var(--nav-height);
+        }
+
+        .navbar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.16);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .navbar.scrolled::after {
+            opacity: 1;
         }
 
         .nav-content {
@@ -30,12 +59,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 44px;
+            height: 100%;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .nav-links li {
@@ -44,23 +76,43 @@
         }
 
         .nav-links a {
-            color: #f5f5f7;
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 12px;
             font-weight: 400;
-            transition: color 0.3s, opacity 0.3s;
+            transition: var(--transition);
             opacity: 0.8;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-primary);
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: #fff;
             opacity: 1;
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         .logo {
-            color: #f5f5f7;
+            color: var(--text-primary);
             font-size: 20px;
             text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
         }
 
         .nav-icons {
@@ -70,48 +122,77 @@
         }
 
         .nav-icons i {
-            color: #f5f5f7;
+            color: var(--text-primary);
             font-size: 16px;
             cursor: pointer;
             opacity: 0.8;
-            transition: opacity 0.3s;
+            transition: var(--transition);
+            position: relative;
         }
 
         .nav-icons i:hover {
             opacity: 1;
+            transform: scale(1.15);
         }
 
-        /* Dropdown Menu */
+        /* Enhanced Dropdown */
         .dropdown-menu {
             position: absolute;
-            top: 100%;
+            top: calc(var(--nav-height) + 8px);
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 10px 20px;
-            border-radius: 10px;
-            display: none;
-            white-space: nowrap;
+            background: var(--nav-bg-scrolled);
+            backdrop-filter: blur(30px);
+            padding: 12px 24px;
+            border-radius: 18px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-bottom-color: var(--nav-bg-scrolled);
         }
 
         .dropdown-menu li {
-            margin: 10px 0;
+            margin: 12px 0;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .dropdown:hover .dropdown-menu {
-            display: block;
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* Scrolled Navbar */
+        .dropdown:hover .dropdown-menu li {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.1s;
+        }
+
+        /* Scrolled State */
         .navbar.scrolled {
-            background: rgba(0, 0, 0, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: var(--nav-bg-scrolled);
+            height: 40px;
         }
 
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+            
+            .navbar {
+                padding: 0 15px;
             }
         }
     </style>
@@ -145,27 +226,52 @@
         </div>
     </nav>
 
-    <div style="height: 2000px;"></div> <!-- Spacer for testing scroll -->
+    <div style="height: 2000px;"></div>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
+        // Enhanced Scroll Handler
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
+            const currentScroll = window.scrollY;
+            
+            if (currentScroll > 50) {
                 navbar.classList.add('scrolled');
+                navbar.style.backdropFilter = `blur(${Math.min(30, 20 + currentScroll/30)}px)`;
             } else {
                 navbar.classList.remove('scrolled');
+                navbar.style.backdropFilter = 'blur(20px)';
             }
+            
+            lastScroll = currentScroll;
         });
 
-        // Dropdown functionality
+        // Smooth Dropdown Handling
         document.querySelectorAll('.dropdown').forEach(item => {
-            item.addEventListener('mouseover', () => {
-                item.querySelector('.dropdown-menu').style.display = 'block';
+            let timeout;
+            
+            item.addEventListener('mouseenter', () => {
+                clearTimeout(timeout);
+                item.querySelector('.dropdown-menu').style.opacity = '1';
+                item.querySelector('.dropdown-menu').style.visibility = 'visible';
             });
             
-            item.addEventListener('mouseout', () => {
-                item.querySelector('.dropdown-menu').style.display = 'none';
+            item.addEventListener('mouseleave', () => {
+                timeout = setTimeout(() => {
+                    item.querySelector('.dropdown-menu').style.opacity = '0';
+                    item.querySelector('.dropdown-menu').style.visibility = 'hidden';
+                }, 300);
+            });
+        });
+
+        // Micro-interactions for Icons
+        document.querySelectorAll('.nav-icons i').forEach(icon => {
+            icon.addEventListener('mousemove', (e) => {
+                const rect = icon.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                icon.style.setProperty('--x', `${x}px`);
+                icon.style.setProperty('--y', `${y}px`);
             });
         });
     </script>
