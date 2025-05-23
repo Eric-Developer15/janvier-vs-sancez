@@ -195,38 +195,145 @@
                 padding: 0 15px;
             }
         }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: var(--nav-height);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(45deg, #0a192f, #172a45);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: rgba(245, 245, 247, 0.8);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+            animation-delay: 0.5s;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+            animation-delay: 0.7s;
+        }
+
+        .cta-button {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .primary-cta {
+            background: var(--brand-primary);
+            color: #fff;
+            border: 2px solid var(--brand-primary);
+        }
+
+        .secondary-cta {
+            color: var(--text-primary);
+            border: 2px solid rgba(245, 245, 247, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(46, 196, 182, 0.2);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated Background Elements */
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(46, 196, 182, 0.1) 0%, transparent 60%);
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
+      <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="logo"></a>
+            <a href="#" class="logo">CODERW</a>
             
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="#">Store</a>
+                    <a href="#">Solutions</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Shop All</a></li>
-                        <li><a href="#">Mac</a></li>
-                        <li><a href="#">iPad</a></li>
-                        <li><a href="#">iPhone</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Cloud Solutions</a></li>
+                        <li><a href="#">AI Integration</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Mac</a></li>
-                <li><a href="#">iPad</a></li>
-                <li><a href="#">iPhone</a></li>
-                <li><a href="#">Watch</a></li>
-                <li><a href="#">Support</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Industries</a></li>
+                <li><a href="#">Case Studies</a></li>
+                <li><a href="#">About</a></li>
             </ul>
 
             <div class="nav-icons">
                 <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-bag"></i>
+                <i class="fas fa-user"></i>
             </div>
         </div>
     </nav>
-
-    <div style="height: 2000px;"></div>
+        <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Digital Presence</h1>
+            <h2>Enterprise-grade development solutions for modern businesses</h2>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button primary-cta">Start Your Project</a>
+                <a href="#" class="cta-button secondary-cta">Explore Solutions</a>
+            </div>
+        </div>
+    </section>
 
     <script>
         // Enhanced Scroll Handler
@@ -274,6 +381,17 @@
                 icon.style.setProperty('--y', `${y}px`);
             });
         });
+
+            const heroContent = document.querySelector('.hero-content');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(heroContent);
     </script>
 </body>
 </html>
