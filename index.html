@@ -595,6 +595,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// Preload images
+function preloadImages() {
+    const images = [
+        'images/pexels-capondesign-1261816.jpg',
+        'images/pexels-inmortal-producciones-108299-336232.jpg',
+        'images/pexels-marina-hinic-199169-726233.jpg'
+    ];
+    
+    images.forEach(img => {
+        new Image().src = img;
+    });
+}
+preloadImages();
     </script>
 </body>
 </html>
