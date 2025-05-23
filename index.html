@@ -1,28 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Form</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple-like Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 0 20px;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: #f5f5f7;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s, opacity 0.3s;
+            opacity: 0.8;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            opacity: 1;
+        }
+
+        .logo {
+            color: #f5f5f7;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-icons i {
+            color: #f5f5f7;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-icons i:hover {
+            opacity: 1;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: none;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu li {
+            margin: 10px 0;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Scrolled Navbar */
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="login-container">
-    <form id="loginForm">
-      <h2>Login</h2>
-      <div class="input-group">
-        <input type="email" id="email" required />
-        <label for="email">Email</label>
-      </div>
-      <div class="input-group">
-        <input type="password" id="password" required />
-        <label for="password">Password</label>
-        <span id="togglePassword">👁️</span>
-      </div>
-      <button type="submit">Login</button>
-      <p id="error-msg"></p>
-    </form>
-  </div>
-  <script src="script.js"></script>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo"></a>
+            
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Store</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Shop All</a></li>
+                        <li><a href="#">Mac</a></li>
+                        <li><a href="#">iPad</a></li>
+                        <li><a href="#">iPhone</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Mac</a></li>
+                <li><a href="#">iPad</a></li>
+                <li><a href="#">iPhone</a></li>
+                <li><a href="#">Watch</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div style="height: 2000px;"></div> <!-- Spacer for testing scroll -->
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Dropdown functionality
+        document.querySelectorAll('.dropdown').forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.querySelector('.dropdown-menu').style.display = 'block';
+            });
+            
+            item.addEventListener('mouseout', () => {
+                item.querySelector('.dropdown-menu').style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
