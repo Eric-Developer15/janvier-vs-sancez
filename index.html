@@ -6,6 +6,39 @@
     <title>Apple-like Navbar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+         .navbar {
+            z-index: 10000;
+            margin-top: 0;
+        }
+
+        .hero {
+            margin-top: var(--nav-height);
+        }
+
+        .dropdown-menu {
+            z-index: 10001;
+        }
+
+        /* Add this animation fix */
+        .hero-content * {
+            animation-fill-mode: both !important;
+        }
+
+        /* Update mobile media query */
+        @media (max-width: 768px) {
+            .text-gradient {
+                font-size: 2.5rem !important;
+            }
+            
+            .animated-subhead {
+                font-size: 1.2rem !important;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
         :root {
             --nav-height: 44px;
             --nav-bg: rgba(0, 0, 0, 0.8);
@@ -492,110 +525,75 @@
     </div>
 </section>
 
-    <script>
-        // Enhanced Scroll Handler
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            const currentScroll = window.scrollY;
-            
-            if (currentScroll > 50) {
-                navbar.classList.add('scrolled');
+     <script>
+        // Replace the entire script section with this corrected version
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Handler
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                const currentScroll = window.scrollY;
+                
+                navbar.classList.toggle('scrolled', currentScroll > 50);
                 navbar.style.backdropFilter = `blur(${Math.min(30, 20 + currentScroll/30)}px)`;
-            } else {
-                navbar.classList.remove('scrolled');
-                navbar.style.backdropFilter = 'blur(20px)';
+            });
+
+            // Dropdown Handling
+            document.querySelectorAll('.dropdown').forEach(item => {
+                let timeout;
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    item.querySelector('.dropdown-menu').style.opacity = '1';
+                    item.querySelector('.dropdown-menu').style.visibility = 'visible';
+                });
+                item.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        item.querySelector('.dropdown-menu').style.opacity = '0';
+                        item.querySelector('.dropdown-menu').style.visibility = 'hidden';
+                    }, 300);
+                });
+            });
+
+            // Slideshow Controller
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            
+            // Initialize slides
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if(index === 0) slide.classList.add('active');
+            });
+            
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
             }
-            
-            lastScroll = currentScroll;
-        });
+            let slideInterval = setInterval(nextSlide, 5000);
 
-        // Smooth Dropdown Handling
-        document.querySelectorAll('.dropdown').forEach(item => {
-            let timeout;
-            
-            item.addEventListener('mouseenter', () => {
-                clearTimeout(timeout);
-                item.querySelector('.dropdown-menu').style.opacity = '1';
-                item.querySelector('.dropdown-menu').style.visibility = 'visible';
-            });
-            
-            item.addEventListener('mouseleave', () => {
-                timeout = setTimeout(() => {
-                    item.querySelector('.dropdown-menu').style.opacity = '0';
-                    item.querySelector('.dropdown-menu').style.visibility = 'hidden';
-                }, 300);
-            });
-        });
-
-        // Micro-interactions for Icons
-        document.querySelectorAll('.nav-icons i').forEach(icon => {
-            icon.addEventListener('mousemove', (e) => {
-                const rect = icon.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                icon.style.setProperty('--x', `${x}px`);
-                icon.style.setProperty('--y', `${y}px`);
-            });
-        });
-
-            const heroContent = document.querySelector('.hero-content');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
+            // Text Animation
+            function animateText(elements, delay) {
+                let index = 0;
+                function updateText() {
+                    elements.forEach(el => el.classList.remove('is-visible'));
+                    elements[index].classList.add('is-visible');
+                    index = (index + 1) % elements.length;
                 }
-            });
-        }, { threshold: 0.5 });
+                updateText();
+                setInterval(updateText, delay);
+            }
 
-        observer.observe(heroContent);
+            // Initialize animations
+            animateText(document.querySelectorAll('.words-wrapper b'), 3000);
+            animateText(document.querySelectorAll('.animated-words span'), 3000);
 
-// Slideshow functionality
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const headlines = document.querySelectorAll('.words-wrapper b');
-const subheads = document.querySelectorAll('.animated-words span');
-
-function nextSlide() {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-}
-
-// Auto-text animation
-function animateText(elements, delay) {
-    let index = 0;
-    
-    function updateText() {
-        elements.forEach(el => el.classList.remove('visible'));
-        elements[index].classList.add('visible');
-        index = (index + 1) % elements.length;
-    }
-    
-    setInterval(updateText, delay);
-}
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // Start slideshow
-    setInterval(nextSlide, 5000);
-    
-    // Animate headlines
-    animateText(headlines, 3000);
-    animateText(subheads, 3000);
-    
-    // Button hover effects
-    document.querySelectorAll('.cta-button').forEach(button => {
-        button.addEventListener('mousemove', (e) => {
-            const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            button.querySelector('.hover-effect').style.left = `${x}px`;
-            button.querySelector('.hover-effect').style.top = `${y}px`;
+            // Preload images
+            const images = [
+                'images/pexels-capondesign-1261816.jpg',
+                'images/pexels-inmortal-producciones-108299-336232.jpg',
+                'images/pexels-marina-hinic-199169-726233.jpg'
+            ];
+            images.forEach(img => new Image().src = img);
         });
-    });
-});
-
     </script>
 </body>
 </html>
